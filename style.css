@@ -1,0 +1,50 @@
+
+/* resetting all default styles; reformatting*/
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: cursive;
+    background: #abb;
+}
+
+
+/* setting the general style for the quiz container */
+#quiz-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 80%;
+    margin: auto;
+
+    display: flex;
+    
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* working on the start quiz button */
+#quiz-container #initiate {
+    padding: 1.5em;
+    border: none;
+    border-radius: 1em;
+    font-size: 1em;
+    font-weight: 700;
+    background-color: #555;
+    color: #abb;
+
+    cursor: pointer;
+}
+#quiz-container #initiate:hover {
+    background: #444;
+}
+#quiz-container #initiate:active{
+    background: #333;
+}
+
+
+/* all of the remaining will be added based on the elements the js will generate */
