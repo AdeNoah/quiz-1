@@ -111,3 +111,34 @@ for(let key in currentQuestion) {
         answerElement.appendChild(label);
     }
 }
+
+
+
+
+
+
+// to sum up all the correct answers
+function submit {
+    questionElement.style.display = 'none';
+    answerElement.style.display = 'none';
+    controlsElement.style.display = 'none';
+
+    
+    let restartQuizBtn = startQuizBtn;
+    restartQuizBtn.innerText = 'Restart Quiz';
+    restartQuizBtn.style.display = 'block';
+    
+    restartQuizBtn.addEventListener('click', () => {
+        questionElement.style.display = 'block';
+        answerElement.style.display = 'block';
+        controlsElement.style.display = 'block';
+
+        quizContainer.appendChild(questionElement);
+        quizContainer.appendChild(answerElement);
+        quizContainer.appendChild(controlsElement);
+
+        generateQuestion();
+    }
+}
+// submit event
+submitButton.addEventListener('click', submit)

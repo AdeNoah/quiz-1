@@ -141,8 +141,8 @@ function generateQuestion() {
             label.setAttribute('for', key);
             label.innerText = currentQuestion[key];
 
+            label.appendChild(option)
             answerElement.appendChild(label);
-            answerElement.appendChild(option);
         }
     }
 
@@ -178,6 +178,9 @@ previousButton.addEventListener('click', previousQuestion)
 nextButton.addEventListener('click', nextQuestion)
 
 
+
+
+
 // to start the quiz logic and its event
 function startQuiz(){
     quizContainer.appendChild(questionElement);
@@ -189,4 +192,4 @@ function startQuiz(){
     startQuizBtn.setAttribute('disabled', 'true');
     startQuizBtn.style.display = 'none';
 }
-startQuizBtn.addEventListener('click', startQuiz())
+startQuizBtn.addEventListener('click', startQuiz)
