@@ -1,16 +1,16 @@
 // creating the main variables 
 let questionBank = [
     {
-        question: 'The this keyword always refers to the global object.',
+        question: `The 'this' keyword always refers to the global object.`,
         option1: 'True',
         option2: 'False',
-        answer: 'option2'
+        answer: 'option1'
     },
     {
         question: 'The parseInt function can convert a string to an integer.',
         option1: 'True',
         option2: 'False',
-        answer: 'opiton1'
+        answer: 'option2'
     },
     {
         question: 'In JavaScript, arrays are objects',
@@ -78,6 +78,9 @@ let currentQuestion;
 let questionIndex = 0;
 let score = 0;
 
+let userAnswers = new Array(questionBank.length).fill(null);
+
+
 // to create the question element and the answer elements and the controls element
 // question element
 let questionElement = document.createElement('div');
@@ -116,17 +119,13 @@ submitButton.style.display = 'none';
 function generateQuestion() {
     questionElement.innerHTML = '';
     answerElement.innerHTML = '';
-
-    nextButton.disabled = true;
-    
+    controlsElement.style.display = 'block';
     currentQuestion = questionBank[questionIndex];
 
-    // to generate the question number, trying out some new things
+    // generating the question
     let questionStatement = document.createElement('p');
     questionStatement.innerText = `${questionIndex + 1}. ${currentQuestion.question}`;
-
     questionElement.appendChild(questionStatement);
-    
 
     // to generate the options
     for(let key in currentQuestion){
@@ -136,6 +135,10 @@ function generateQuestion() {
             option.name = 'options';
             option.id = key;
             option.value = key;
+
+            option.addEventListener('change', e => {
+                userAnswers[questionIndex] = e.target.value;
+            })
             
             const label = document.createElement('label');
             label.setAttribute('for', key);
@@ -146,9 +149,18 @@ function generateQuestion() {
         }
     }
 
-    // when to disable the previous button
+    const selected = userAnswers[questionIndex];
+    if(selected) {
+        selectedAnswer = answerElement.querySelector('input[value="${selected}"]')
+        if(selectedAnswer) {
+            selectedAnswer.checked = true;
+            nextButton.disabled = false;
+        }
+    }
+
+    // disabling the buttons
     previousButton.disabled = questionIndex === 0;
-    // when to disble the next button
+    nextButton.disabled = true;
     if(questionIndex === questionBank.length - 1) {
         nextButton.setAttribute('disabled', 'true');
         submitButton.style.display = 'block'
@@ -158,15 +170,13 @@ function generateQuestion() {
     }
 }
 
-// functions for each of the controls element
-// for previous questions
+// for the controls element
 function previousQuestion() {
     if(questionIndex >= 0) {
         questionIndex--;
         generateQuestion();
     }
 }
-// for next questions
 function nextQuestion() {
     if(questionIndex < questionBank.length - 1) {
         questionIndex++;
@@ -177,19 +187,23 @@ function nextQuestion() {
 previousButton.addEventListener('click', previousQuestion)
 nextButton.addEventListener('click', nextQuestion)
 
-
-
-
+// the submit button should come here
+submitButton.addEventListener('click', () => {
+    questionElement.style.display = 'none';
+    answerElement.style.display = 'none';
+    controlsElement.style.display = 'none';
+})
 
 // to start the quiz logic and its event
 function startQuiz(){
     quizContainer.appendChild(questionElement);
     quizContainer.appendChild(answerElement);
     quizContainer.appendChild(controlsElement);
-    
-    generateQuestion()
-
+    generateQuestion();
     startQuizBtn.setAttribute('disabled', 'true');
     startQuizBtn.style.display = 'none';
 }
+
 startQuizBtn.addEventListener('click', startQuiz)
+
+console.log(userAnswers);
