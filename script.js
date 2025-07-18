@@ -34,8 +34,8 @@ let questionBank = [
         question: 'Question: What is the output of the following code? console.log(10 + "5");',
         option1: 15,
         option2: 105,
-        option3: '15',
-        option4: '105',
+        option3: `'15'`,
+        option4: `'105'`,
         answer: 'option2'
     },
     {
@@ -135,37 +135,41 @@ function generateQuestion() {
             option.name = 'options';
             option.id = key;
             option.value = key;
+            option.classList.add('options')
 
             option.addEventListener('change', e => {
                 userAnswers[questionIndex] = e.target.value;
+                if (questionIndex < questionBank.length - 1) {
+                    nextButton.disabled = false;
+                }
             })
             
-            const label = document.createElement('label');
+            let label = document.createElement('label');
             label.setAttribute('for', key);
             label.innerText = currentQuestion[key];
+            label.classList.add('optionsText')
+            
 
             label.appendChild(option)
             answerElement.appendChild(label);
         }
     }
 
-    const selected = userAnswers[questionIndex];
-    if(selected) {
-        selectedAnswer = answerElement.querySelector('input[value="${selected}"]')
+    const selectedOption = userAnswers[questionIndex];
+    if(selectedOption !== null) {
+        selectedAnswer = answerElement.querySelector(`input[value="${selectedOption}"]`)
         if(selectedAnswer) {
             selectedAnswer.checked = true;
-            nextButton.disabled = false;
         }
     }
 
     // disabling the buttons
     previousButton.disabled = questionIndex === 0;
-    nextButton.disabled = true;
     if(questionIndex === questionBank.length - 1) {
         nextButton.setAttribute('disabled', 'true');
-        submitButton.style.display = 'block'
+        submitButton.style.display = 'block';
     } else {
-        nextButton.removeAttribute('disabled');
+        nextButton.disabled = (userAnswers[questionIndex] === null);
         submitButton.style.display = 'none';
     }
 }

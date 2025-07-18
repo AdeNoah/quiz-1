@@ -48,3 +48,9 @@
 
 
 /* all of the remaining will be added based on the elements the js will generate */
+.options {
+    display: none;
+}
+.optionsText {
+    display: block;
+}
