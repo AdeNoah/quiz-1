@@ -75,7 +75,7 @@ const quizContainer = document.querySelector('#quiz-container');
 const startQuizBtn = document.querySelector('#initiate');
 
 let currentQuestion;
-let questionIndex = 0;
+let questionIndex = 9;
 let score = 0;
 
 let userAnswers = new Array(questionBank.length).fill(null);
@@ -84,33 +84,33 @@ let userAnswers = new Array(questionBank.length).fill(null);
 // to create the question element and the answer elements and the controls element
 // question element
 let questionElement = document.createElement('div');
-questionElement.classList.add('question-element');
+questionElement.classList.add('questionElement');
 
 // answer element
 let answerElement = document.createElement('div');
-answerElement.classList.add('answer-element');
+answerElement.classList.add('answerElement');
 
 // controls element
 let controlsElement = document.createElement('div');
-controlsElement.classList.add('controls')
+controlsElement.classList.add('controlsElement')
 
 // in the controls element, we have the navigation element
 let navigationElement = document.createElement('div')
-navigationElement.classList.add('navigation-element')
+navigationElement.classList.add('navigationElement')
 controlsElement.appendChild(navigationElement)
 
 const previousButton = document.createElement('button');
-previousButton.classList.add('previous-button');
+previousButton.classList.add('previousButton');
 previousButton.innerText = '\u2190';
 navigationElement.appendChild(previousButton);
 
 const nextButton = document.createElement('button');
-nextButton.classList.add('next-button');
+nextButton.classList.add('nextButton');
 nextButton.innerText = `\u2192`;
 navigationElement.appendChild(nextButton)
 
 const submitButton = document.createElement('button')
-submitButton.classList.add('submit-btn');
+submitButton.classList.add('submitBtn');
 submitButton.innerText = `\u21b5`;
 controlsElement.appendChild(submitButton)
 submitButton.style.display = 'none';
@@ -126,6 +126,7 @@ function generateQuestion() {
     let questionStatement = document.createElement('p');
     questionStatement.innerText = `${questionIndex + 1}. ${currentQuestion.question}`;
     questionElement.appendChild(questionStatement);
+    questionStatement.classList.add('questionStatement')
 
     // to generate the options
     for(let key in currentQuestion){
@@ -147,9 +148,7 @@ function generateQuestion() {
             let label = document.createElement('label');
             label.setAttribute('for', key);
             label.innerText = currentQuestion[key];
-            label.classList.add('optionsText')
-            
-
+            label.classList.add('optionsText');
             label.appendChild(option)
             answerElement.appendChild(label);
         }
@@ -191,11 +190,22 @@ function nextQuestion() {
 previousButton.addEventListener('click', previousQuestion)
 nextButton.addEventListener('click', nextQuestion)
 
-// the submit button should come here
+// the submit button here
 submitButton.addEventListener('click', () => {
+    score = 0;
+    for(let i = 0; questionBank.length; i++) {
+        if(userAnswers[i] === questionBank[i].answer) {
+            score++;
+        }
+    }
+
     questionElement.style.display = 'none';
     answerElement.style.display = 'none';
     controlsElement.style.display = 'none';
+
+    let scoreDisplay = document.createElement('div')
+    scoreDisplay.classList.add('ScoreDisplay')
+    scoreDisplay.innerText = `You scored ${score} / ${questionBank.length} questions`
 })
 
 // to start the quiz logic and its event
@@ -208,6 +218,9 @@ function startQuiz(){
     startQuizBtn.style.display = 'none';
 }
 
-startQuizBtn.addEventListener('click', startQuiz)
+startQuizBtn.addEventListener('click', startQuiz())
 
 console.log(userAnswers);
+console.log(score)
+
+
