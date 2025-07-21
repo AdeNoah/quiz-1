@@ -79,10 +79,10 @@
 .optionsText:hover {
     opacity: .7;
 }
-.options:checked + .optionsText::before {
-    background-color: #ccd;
-
+.optionsText:has(.options:checked) {
+    background-color: #555;
 }
+
 
 /* controls element */
 .controlsElement {
@@ -117,6 +117,7 @@
 }
 
 .submitBtn {
+    width: 3em;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
