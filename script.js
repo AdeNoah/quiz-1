@@ -241,11 +241,7 @@ submitButton.addEventListener('click', () => {
 })
 
 // to start the quiz logic and its event
-function startQuiz(){
-    // questionElement.style.display = 'block';
-    // answerElement.style.display = 'block';
-    // controlsElement.style.display = 'block';    
-    
+function startQuiz(){    
     quizContainer.appendChild(questionElement)
     quizContainer.appendChild(answerElement)
     quizContainer.appendChild(controlsElement)
