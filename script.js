@@ -75,7 +75,7 @@ const quizContainer = document.querySelector('#quiz-container');
 const startQuizBtn = document.querySelector('#initiate');
 
 let currentQuestion;
-let questionIndex = 9;
+let questionIndex = 0;
 let score = 0;
 
 let userAnswers = new Array(questionBank.length).fill(null);
@@ -119,7 +119,7 @@ submitButton.style.display = 'none';
 function generateQuestion() {
     questionElement.innerHTML = '';
     answerElement.innerHTML = '';
-    controlsElement.style.display = 'block';
+    controlsElement.style.display = '';
     currentQuestion = questionBank[questionIndex];
 
     // generating the question
@@ -191,7 +191,23 @@ function nextQuestion() {
 function restartQuiz() {
     score = 0;
     questionIndex = 0;
-    userAnswers = new Array(questionBank.length).fill(null);
+    userAnswers.fill(null);
+
+    const existingScoreDisplay = quizContainer.querySelector('.scoreDisplay');
+    if(existingScoreDisplay) {
+        existingScoreDisplay.remove();
+    }
+
+    const existingRestartBtn = quizContainer.querySelector('.restartBtn');
+    if (existingRestartBtn) {
+        existingRestartBtn.remove();
+    }
+
+    questionElement.style.display = 'none';
+    answerElement.style.display = 'none';
+    controlsElement.style.display = 'none';
+    startQuizBtn.style.display = 'block';
+    startQuizBtn.disabled = false;
 }
 
 // adding event listeners to the buttons
@@ -212,21 +228,28 @@ submitButton.addEventListener('click', () => {
     controlsElement.style.display = 'none';
 
     let scoreDisplay = document.createElement('div')
-    scoreDisplay.classList.add('ScoreDisplay')
+    scoreDisplay.classList.add('scoreDisplay')
     scoreDisplay.innerText = `You scored ${score} / ${questionBank.length} questions`;
 
-    quizContainer.appendChild(scoreDisplay) 
-    quizContainer.appendChild(restartQuizBtn)
+    quizContainer.appendChild(scoreDisplay) ;
 
-    // scoreDisplay.style.display = 'none';
-    // restartQuizBtn.style.display = 'none';
+    const restartButton = document.createElement('button');
+    restartButton.classList.add('restartBtn');
+    restartButton.innerText = 'Restart Quiz';
+    quizContainer.appendChild(restartButton);
+    restartButton.addEventListener('click', restartQuiz)
 })
 
 // to start the quiz logic and its event
 function startQuiz(){
-    quizContainer.appendChild(questionElement);
-    quizContainer.appendChild(answerElement);
-    quizContainer.appendChild(controlsElement);
+    // questionElement.style.display = 'block';
+    // answerElement.style.display = 'block';
+    // controlsElement.style.display = 'block';    
+    
+    quizContainer.appendChild(questionElement)
+    quizContainer.appendChild(answerElement)
+    quizContainer.appendChild(controlsElement)
+    
     generateQuestion();
     startQuizBtn.setAttribute('disabled', 'true');
     startQuizBtn.style.display = 'none';
@@ -235,6 +258,3 @@ function startQuiz(){
 startQuizBtn.addEventListener('click', startQuiz)
 
 console.log(userAnswers);
-console.log(score)
-
-
