@@ -206,7 +206,7 @@ function restartQuiz() {
     questionElement.style.display = 'none';
     answerElement.style.display = 'none';
     controlsElement.style.display = 'none';
-    startQuizBtn.style.display = 'block';
+    startQuizBtn.style.display = 'block';   
     startQuizBtn.disabled = false;
 }
 
@@ -249,6 +249,13 @@ function startQuiz(){
     quizContainer.appendChild(questionElement)
     quizContainer.appendChild(answerElement)
     quizContainer.appendChild(controlsElement)
+
+    if(questionElement.style.display = 'none') {
+        questionElement.style.display = 'block'
+    }
+    if(answerElement.style.display = 'none') {
+        answerElement.style.display = 'flex'
+    }
     
     generateQuestion();
     startQuizBtn.setAttribute('disabled', 'true');
