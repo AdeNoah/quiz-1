@@ -156,7 +156,7 @@ function generateQuestion() {
 
     const selectedOption = userAnswers[questionIndex];
     if(selectedOption !== null) {
-        selectedAnswer = answerElement.querySelector(`input[value="${selectedOption}"]`)
+        let selectedAnswer = answerElement.querySelector(`input[value="${selectedOption}"]`)
         if(selectedAnswer) {
             selectedAnswer.checked = true;
         }
@@ -186,6 +186,14 @@ function nextQuestion() {
         generateQuestion();
     }
 }
+
+// handles the restart quiz 
+function restartQuiz() {
+    score = 0;
+    questionIndex = 0;
+    userAnswers = new Array(questionBank.length).fill(null);
+}
+
 // adding event listeners to the buttons
 previousButton.addEventListener('click', previousQuestion)
 nextButton.addEventListener('click', nextQuestion)
@@ -193,7 +201,7 @@ nextButton.addEventListener('click', nextQuestion)
 // the submit button here
 submitButton.addEventListener('click', () => {
     score = 0;
-    for(let i = 0; questionBank.length; i++) {
+    for(let i = 0; i < questionBank.length; i++) {
         if(userAnswers[i] === questionBank[i].answer) {
             score++;
         }
@@ -205,7 +213,13 @@ submitButton.addEventListener('click', () => {
 
     let scoreDisplay = document.createElement('div')
     scoreDisplay.classList.add('ScoreDisplay')
-    scoreDisplay.innerText = `You scored ${score} / ${questionBank.length} questions`
+    scoreDisplay.innerText = `You scored ${score} / ${questionBank.length} questions`;
+
+    quizContainer.appendChild(scoreDisplay) 
+    quizContainer.appendChild(restartQuizBtn)
+
+    // scoreDisplay.style.display = 'none';
+    // restartQuizBtn.style.display = 'none';
 })
 
 // to start the quiz logic and its event
@@ -218,7 +232,7 @@ function startQuiz(){
     startQuizBtn.style.display = 'none';
 }
 
-startQuizBtn.addEventListener('click', startQuiz())
+startQuizBtn.addEventListener('click', startQuiz)
 
 console.log(userAnswers);
 console.log(score)

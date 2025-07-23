@@ -51,7 +51,6 @@
 
 /* question Element */
 .questionElement {
-    margin-bottom: 3em;
     width: 100%;
     text-align: left;
     font-weight: 600;
@@ -63,7 +62,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* margin-bottom: 3em; */
 }
 .options {
     display: none; 
@@ -75,19 +73,20 @@
     border: none;
     border-radius: 1.5em;
     background-color: #dde;
+    overflow-wrap: anywhere;
 }
 .optionsText:hover {
     opacity: .7;
 }
 .optionsText:has(.options:checked) {
-    background-color: #555;
+    background-color: #888;
 }
 
 
 /* controls element */
 .controlsElement {
     width: 100%;
-    padding: 3em;
+    padding: 1em 3em;
     display: flex;
     flex-direction: column;
 }
@@ -96,7 +95,6 @@
     font-size: 2em;
     border-radius: .3em;
     background-color: #dde;
-    color: #333;
 }
 .navigationElement {
     display: flex;
@@ -105,7 +103,7 @@
 .navigationElement button {
     padding: .7em 1em;
     font-size: 2em;
-    border-radius: .3em;
+    border-radius: 20%;
     background-color: #dde;
     color: #333;    
 }
@@ -118,13 +116,35 @@
 
 .submitBtn {
     width: 3em;
+    border-radius: 20px;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top: 1em;
+    left: 100%;
+    transform: translateX(-100%);
 }
 .submitBtn:hover {
     opacity: 0.7;
 }
 .submitBtn:active {
     opacity: 0.95;
+}
+
+/* the show score screen */
+.restartBtn {
+    padding: 1.5em;
+    border: none;
+    border-radius: 1em;
+    font-size: 1em;
+    font-weight: 700;
+    background-color: #555;
+    color: #abb;
+    margin-top: 2em;
+
+    cursor: pointer;
+}
+.restartBtn:hover{
+    background-color: #444;
+}
+.restartBtn:active{
+    background-color: #333;
 }

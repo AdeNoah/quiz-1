@@ -83,6 +83,7 @@ for the javascript, there are a few steps i will like to highlight, they are:
 1. make a generateQuestions functions and call it in a startQuiz function then add an eventListener to the Start Quiz button. the startQuiz function is going to run the generateQuestions function and then disable the button and remove it from the dom.
 
 2. next is to make a chooseAnswer function to be able to select the correct answer. if the correct answer is chosen, it records it as score and increases with eash correct question. if the question is wrong, flag both the selected answer and the correct one for review.
+well this one didnt come out as a chooseanswer function as i thought it would at the time.
 
 3. create a loadNext function and a loadPrevious function and hook them via eventListener to next and previous buttons respectively, this will allow to go through the questions efficiently 
 
@@ -116,3 +117,4 @@ for(let key in currentQuestion) {
 
 
 
+input[value="${selectedOption}"]
